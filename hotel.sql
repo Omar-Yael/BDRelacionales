@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2026 a las 16:22:03
+-- Tiempo de generación: 19-02-2026 a las 16:16:33
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -35,6 +35,17 @@ CREATE TABLE `atencion` (
   `nota` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `atencion`
+--
+
+INSERT INTO `atencion` (`id_atencion`, `id_reserva`, `id_empleado`, `fecha`, `nota`) VALUES
+(1, 1, 1, '2026-02-03', 'Se requieren toallas'),
+(2, 2, 2, '2026-01-14', 'Limpieza'),
+(3, 3, 3, '2025-12-07', 'Se solicito desayuno al cuarto'),
+(4, 4, 4, '2026-02-01', 'Limpieza'),
+(5, 5, 5, '2025-11-21', 'Servicio al cuarto');
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +60,17 @@ CREATE TABLE `cliente` (
   `fecha_registro` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`id_cliente`, `nombre`, `email`, `telefono`, `fecha_registro`) VALUES
+(1, 'Guillermo Juarez Villas', 'guille.juarez@gmail.com', '667 789345', '2026-02-01'),
+(2, 'Derek Medina Quintero', 'derek.medina24@gmail.com', '667 3827113', '2009-01-10'),
+(3, 'Francisco Villa Real', 'francis.villa9@gmail.com', '667 2349867', '2020-06-07'),
+(4, 'Henry Castillos Zuñiga', 'henry.castillos736@gmail.com', '6767676767', '2022-02-06'),
+(5, 'Omar Yael Ruiz Nuño', 'omargamermichelin354@gmail.com', '667 308 1968', '2026-02-18');
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +84,17 @@ CREATE TABLE `empleado` (
   `puesto` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `empleado`
+--
+
+INSERT INTO `empleado` (`id_empleado`, `id_hotel`, `nombre`, `puesto`, `email`) VALUES
+(1, 1, 'Juan Carlos Bodoque', 'Gerente', 'Juan.bodoquepro@gmail.com'),
+(2, 2, 'Manfred Castañeda Rocio', 'Portero', 'Manfred.castañeda@gmail.com'),
+(3, 3, 'Paula Salazar Morada', 'Recepcionista', 'Paula.salazar@gmail.com'),
+(4, 1, 'Lewis Torres Morados', 'Guardia nocturno', 'Lewis.torres@gmail.com'),
+(5, 2, 'Kevin Kevin Montes Montes', 'Conserje', 'Kevinnevin.montes@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -78,6 +111,17 @@ CREATE TABLE `habitacion` (
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `habitacion`
+--
+
+INSERT INTO `habitacion` (`id_habitacion`, `id_hotel`, `numero`, `tipo`, `precio_noche`, `estado`) VALUES
+(1, 1, 1, 'individual', 185, 'disponible'),
+(2, 2, 2, 'doble', 200, 'ocupado'),
+(3, 3, 3, 'triple', 300, 'disponible'),
+(4, 2, 4, 'cuadruple', 401, 'ocupado'),
+(5, 1, 5, 'individual', 185, 'disponible');
+
 -- --------------------------------------------------------
 
 --
@@ -90,6 +134,15 @@ CREATE TABLE `hotel` (
   `ciudad` varchar(50) NOT NULL,
   `telefono` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `hotel`
+--
+
+INSERT INTO `hotel` (`id_hotel`, `nombre`, `ciudad`, `telefono`) VALUES
+(1, 'Hotel Praderas', 'Ciudad playa', '667 554098'),
+(2, 'Motel de la bahia', 'Culiacan Rosales', '667 667 667'),
+(3, 'Hotel Trivago', 'Paris', '3356454545');
 
 -- --------------------------------------------------------
 
@@ -104,8 +157,19 @@ CREATE TABLE `pago` (
   `monto` double NOT NULL,
   `metodo` varchar(50) NOT NULL,
   `referencia` varchar(50) NOT NULL,
-  `estado_pago` int(50) NOT NULL
+  `estado_pago` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pago`
+--
+
+INSERT INTO `pago` (`id_pago`, `id_reserva`, `fecha_pago`, `monto`, `metodo`, `referencia`, `estado_pago`) VALUES
+(1, 1, '2026-02-17', 130, 'Efectivo', '5642', 'Aceptado'),
+(2, 2, '2026-01-06', 120, 'Tarjeta', '8295', 'Aceptado'),
+(3, 7, '2025-11-17', 300, 'Efectivo', '1834', 'Aceptado'),
+(4, 8, '2025-06-13', 600, 'Tarjeta', '6116', 'Declinada'),
+(5, 5, '2026-02-07', 350, 'Efectivo', '3966', 'Aceptado');
 
 -- --------------------------------------------------------
 
@@ -124,6 +188,51 @@ CREATE TABLE `reserva` (
   `fecha_creacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `reserva`
+--
+
+INSERT INTO `reserva` (`id_reserva`, `id_cliente`, `id_habitacion`, `fecha_entrada`, `fecha_salida`, `num_huespedes`, `estado_reserva`, `fecha_creacion`) VALUES
+(1, 1, 2, '2026-01-06', '2026-03-07', 2, 'vigente', '2026-02-06'),
+(2, 2, 5, '2025-10-17', '2026-02-13', 1, 'vigente', '2025-10-17'),
+(3, 5, 4, '2026-02-17', '2026-02-18', 8, 'vigente', '2026-02-17'),
+(4, 4, 2, '2026-01-12', '2026-01-16', 2, 'vigente', '2026-01-12'),
+(5, 2, 3, '2026-01-10', '2026-02-10', 5, 'vigente', '2026-01-10'),
+(6, 3, 5, '2025-12-08', '2025-12-13', 1, 'vigente', '2025-12-08'),
+(7, 4, 3, '2025-11-04', '2025-11-18', 4, 'vigente', '2025-11-04'),
+(8, 5, 1, '2026-03-18', '2026-03-23', 2, 'vigente', '2026-03-18'),
+(9, 1, 3, '2026-02-04', '2026-02-07', 3, 'vigente', '2026-02-03'),
+(10, 5, 5, '2026-02-17', '2026-02-18', 1, 'vigente', '2026-02-18');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reserva_servicio`
+--
+
+CREATE TABLE `reserva_servicio` (
+  `id_reserva` int(11) NOT NULL,
+  `id_servicio` int(11) NOT NULL,
+  `cantidad` varchar(100) NOT NULL,
+  `precio_unitario` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reserva_servicio`
+--
+
+INSERT INTO `reserva_servicio` (`id_reserva`, `id_servicio`, `cantidad`, `precio_unitario`) VALUES
+(1, 1, '3', 120),
+(2, 2, '3', 150),
+(3, 3, '6', 60),
+(4, 4, '4', 300),
+(5, 5, '1', 200),
+(6, 1, '2', 120),
+(7, 2, '6', 150),
+(8, 3, '2', 60),
+(9, 4, '1', 300),
+(10, 5, '4', 200);
+
 -- --------------------------------------------------------
 
 --
@@ -135,6 +244,17 @@ CREATE TABLE `servicio` (
   `nombre` varchar(100) NOT NULL,
   `precio` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `servicio`
+--
+
+INSERT INTO `servicio` (`id_servicio`, `nombre`, `precio`) VALUES
+(1, 'Desayuno', 120),
+(2, 'Limpieza', 100),
+(3, 'Conexion wifi', 60),
+(4, 'Room service', 200),
+(5, 'Restaurante', 150);
 
 --
 -- Índices para tablas volcadas
@@ -191,6 +311,20 @@ ALTER TABLE `reserva`
   ADD KEY `id_habitacion` (`id_habitacion`);
 
 --
+-- Indices de la tabla `reserva_servicio`
+--
+ALTER TABLE `reserva_servicio`
+  ADD KEY `id_reserva` (`id_reserva`,`id_servicio`),
+  ADD KEY `id_reserva_2` (`id_reserva`),
+  ADD KEY `id_servicio` (`id_servicio`);
+
+--
+-- Indices de la tabla `servicio`
+--
+ALTER TABLE `servicio`
+  ADD PRIMARY KEY (`id_servicio`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -198,43 +332,49 @@ ALTER TABLE `reserva`
 -- AUTO_INCREMENT de la tabla `atencion`
 --
 ALTER TABLE `atencion`
-  MODIFY `id_atencion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_atencion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `habitacion`
 --
 ALTER TABLE `habitacion`
-  MODIFY `id_habitacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_habitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `servicio`
+--
+ALTER TABLE `servicio`
+  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -271,6 +411,13 @@ ALTER TABLE `pago`
 ALTER TABLE `reserva`
   ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
   ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_habitacion`) REFERENCES `habitacion` (`id_habitacion`);
+
+--
+-- Filtros para la tabla `reserva_servicio`
+--
+ALTER TABLE `reserva_servicio`
+  ADD CONSTRAINT `reserva_servicio_ibfk_1` FOREIGN KEY (`id_reserva`) REFERENCES `reserva` (`id_reserva`),
+  ADD CONSTRAINT `reserva_servicio_ibfk_2` FOREIGN KEY (`id_servicio`) REFERENCES `servicio` (`id_servicio`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
